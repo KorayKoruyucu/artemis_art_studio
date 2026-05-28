@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atölye Dünyası</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="nav-links" id="navLinks">
+            <li class="has-dropdown">
+                <a href="atolyeler.html">Atölyeler</a>
+                <ul class="dropdown">
+                    <li><a href="atolyeler.html#1">Vitray Boyama Atölyesi </a></li>
+                    <li><a href="atolyeler.html#2">Cupcake Mum Atölyesi</a></li>
+                    <li><a href="atolyeler.html#3">Mozaik Ayna Atölyesi </a></li>
+                    <li><a href="atolyeler.html#4">Ay Lambası Atölyesi </a></li>
+                    <li><a href="atolyeler.html#5">Seramik Atölyesi </a></li>
+                    <li><a href="atolyeler.html#6">Serbest Boyama Atölyesi</a></li>
+                    <li><a href="atolyeler.html#7">Film Gecesi Atölyesi</a></li>
+                </ul>
+            </li>
+            <li><a href="takvim.html">Takvim</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+        <div class="burger" id="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="header-content" id="hero-content">
+            <img src="artemis_logo.png" alt="Logo" class="hero-logo">
+            <h1>Artemis Coffee & Art Studio</h1>
+            <br><p>Sanat ve kahvenin buluştuğu bir alan yaratıyoruz</p>
+            <p>Herkesin kendini rahat hissedebileceği bir ortamda üretmenin ve paylaşmanın keyfini birlikte keşfediyoruz. Atölyelerimiz ve sıcak atmosferimizle, yaratıcılığa küçük bir alan açmak isteyen herkesi bekliyoruz.</p>
+            <a href="atolyeler.html" class="btn">Atölyeler</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="carousel-container">
+            
+            <button id="prevBtn" class="carousel-btn">❮</button>
+
+            <section class="features" id="carousel">
+                <a href="atolyeler.html#1" class="card">
+                    <img src="resimler/atolyeler/vitray.jpeg" alt="Vitray Boyama Atölyesi">
+                    <div class="card-info"><h3>Vitray Boyama Atölyesi</h3></div>
+                </a>
+                <a href="atolyeler.html#2" class="card">
+                    <img src="resimler/atolyeler/cupcake.jpeg" alt="Cupcake Mum Atölyesi">
+                    <div class="card-info"><h3>Cupcake Mum Atölyesi</h3></div>
+                </a>
+                <a href="atolyeler.html#3" class="card">
+                    <img src="resimler/atolyeler/mozaik.jpeg" alt="Mozaik Ayna Atölyesi">
+                    <div class="card-info"><h3>Mozaik Ayna Atölyesi</h3></div>
+                </a>
+                <a href="atolyeler.html#4" class="card">
+                    <img src="resimler/atolyeler/ay.jpeg" alt="Ay Lambası Atölyesi">
+                    <div class="card-info"><h3>Ay Lambası Atölyesi</h3></div>
+                </a>
+                <a href="atolyeler.html#5" class="card">
+                    <img src="resimler/atolyeler/seramik.jpeg" alt="Seramik Atölyesi">
+                    <div class="card-info"><h3>Seramik Atölyesi</h3></div>
+                </a>
+                <a href="atolyeler.html#6" class="card">
+                    <img src="resimler/atolyeler/serbest.jpeg" alt="Serbest Boyama Atölyesi">
+                    <div class="card-info"><h3>Serbest Boyama Atölyesi</h3></div>
+                </a>
+                <a href="atolyeler.html#7" class="card">
+                    <img src="resimler/atolyeler/film.jpeg" alt="Film Gecesi Atölyesi">
+                    <div class="card-info"><h3>Film Gecesi Atölyesi</h3></div>
+                </a>
+            </section>
+
+            <button id="nextBtn" class="carousel-btn">❯</button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Atölye Dünyası. Tüm Hakları Saklıdır.</p>
+            <div class="socials">
+                <a href="#">Instagram</a> | <a href="#">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Navbar Centered */
+.navbar {
+    display: flex;
+    justify-content: center; /* Centers the links */
+    align-items: center;
+    height: 70px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0 20px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    position: relative;
+    padding: 0 30px; /* Spacing between centered items */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #e67e22;
+}
+
+/* Dropdown */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%); /* Centers dropdown under the text */
+    background: #fff;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    list-style: none;
+    min-width: 160px;
+    padding: 10px 0;
+}
+
+.has-dropdown:hover .dropdown {
+    display: block;
+}
+
+.dropdown li {
+    padding: 10px 20px;
+    text-align: center;
+}
+
+/* Sections */
+.header {
+    height: 90vh; /* Full screen height */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative; 
+    overflow: hidden;
+    background-color: #000; /* Fallback color */
+}
+
+/* This layer handles the image and the dark tint separately */
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://images.unsplash.com/photo-1459749411177-042180ce6742?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    z-index: 1; /* Background layer */
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: #e67e22;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.container { padding: 50px 10%; }
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.footer {
+    background: #333;
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+/* Mobile Adjustments */
+.burger { 
+    display: none; 
+    cursor: pointer; 
+    position: absolute; 
+    right: 20px; /* Keeps burger on the right while nav is centered */
+}
+
+.burger div { width: 25px; height: 3px; background: #333; margin: 5px; }
+
+@media screen and (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        right: 0;
+        top: 70px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        width: 100%;
+        transform: translateX(100%);
+        transition: 0.4s;
+        padding-top: 50px;
+    }
+    .nav-links li { padding: 20px; }
+    .burger { display: block; }
+    .nav-active { transform: translateX(0%); }
+}
+
+.header-content {
+    position: relative;
+    z-index: 2; /* Sits ABOVE the dark tint so colors stay bright */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-logo {
+    width: 600px;
+    height: auto;
+    margin-bottom: -10px; /* Use a small negative value to pull the title UP */
+    position: relative;
+    z-index: 2;
+}
+
+.header-content h1 {
+    margin-top: 0;        /* Remove any default space above the text */
+    margin-bottom: 10px;  /* Keep some space below the title for the sub-text */
+    font-size: 3rem;      /* Adjust size if needed */
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+
+/* Hides scrollbar on Chrome, Safari, and Edge */
+.features::-webkit-scrollbar {
+    display: none;
+}
+
+.features {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 40px 0;
+    width: 100%;
+    align-items: stretch; /* Ensures all cards stay the same height */
+}
+
+.card {
+    /* This ensures exactly 3 visible: (100% / 3) minus the gaps */
+    flex: 0 0 calc(33.33% - 20px); 
+    position: relative;
+    height: 450px; /* Force the rectangular height back */
+    border-radius: 15px;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    background-color: #eee; /* Light grey placeholder if image fails */
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Makes the image fill the rectangle perfectly */
+    display: block;
+}
+
+.card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    text-align: center;
+}
+
+/* Mobile: Show only 1 or 2 at a time */
+@media screen and (max-width: 768px) {
+    .card {
+        flex: 0 0 calc(100% - 10px);
+    }
+}
+
+/* Buttons */
+.prev-btn, .next-btn {
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 10;
+    border-radius: 50%;
+    font-size: 20px;
+}
+
+.prev-btn { left: -50px; }
+.next-btn { right: -50px; }
+
+@media screen and (max-width: 768px) {
+    .prev-btn { left: 0; }
+    .next-btn { right: 0; }
+}
+
+/* Container to hold cards and buttons together */
+.carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Button Styling */
+.carousel-btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+    transition: 0.3s;
+    /* This makes them float over the edges */
+    position: absolute; 
+}
+
+#prevBtn { left: -60px; }
+#nextBtn { right: -60px; }
+
+.carousel-btn:hover {
+    background: #e67e22; /* Matches your theme */
+}
+
+/* Hide buttons if screen is too small */
+@media screen and (max-width: 768px) {
+    #prevBtn { left: 0; }
+    #nextBtn { right: 0; }
+}
+
+.atolyeler-container {
+    padding: 100px 10%;
+}
+
+.atolye-detail {
+    display: flex;
+    /* This centers the image vertically relative to the text block */
+    align-items: center; 
+    justify-content: center;
+    gap: 5%;                 
+    margin-bottom: 80px;
+    padding: 0 5%;           
+}
+
+.atolye-detail img {
+    width: 45%;              
+    height: auto;            
+    border-radius: 20px;
+    display: block;
+}
+
+.atolye-text {
+    width: 45%;              
+    /* Optional: justify makes the right edge of the text straight like the image */
+    text-align: justify;     
+}
+
+
+.atolye-text h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #0d2c2a;          /* Your Artemis Green */
+}
+
+.atolye-text p {
+    line-height: 1.6;        /* Makes the long text easier to read */
+    font-size: 1.1rem;
+}
+
+/* Responsive: On phones, stack them instead of side-by-side */
+@media screen and (max-width: 900px) {
+    .atolye-detail {
+        flex-direction: column;
+        align-items: center;
+    }
+    .atolye-detail img, .atolye-text {
+        width: 90%;          /* Full width on mobile */
+    }
+}
+/* Responsive Fix */
+@media screen and (max-width: 768px) {
+    .atolye-detail {
+        flex-direction: column;
+    }
+    .atolye-detail img {
+        width: 100%;
+    }
+}
+
+.hero-logo-other {
+    width: 300px;
+    height: auto;
+    margin-bottom: -10px; /* Use a small negative value to pull the title UP */
+    position: relative;
+    z-index: 2;
+}
+
+.header-content-other {
+    position: relative;
+    z-index: 2; /* Sits ABOVE the dark tint so colors stay bright */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-other {
+    height: 35vh; /* Full screen height */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative; 
+    overflow: hidden;
+    background-color: #000; /* Fallback color */
+}
+
+/* This layer handles the image and the dark tint separately */
+.header-other::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://images.unsplash.com/photo-1459749411177-042180ce6742?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    z-index: 1; /* Background layer */
+}
+
+.takvim-container {
+    padding: 100px 5%;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.takvim-container h1 {
+    margin-bottom: 30px;
+    color: #0d2c2a; /* Your Artemis Green */
+    font-size: 2.5rem;
+}
+
+.calendar-photo {
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.calendar-photo img {
+    width: 100%;    /* Makes it responsive */
+    height: auto;   /* Maintains proportions */
+    display: block;
+}
+
+/* On mobile, we want to make sure the user can zoom in if the text is small */
+@media screen and (max-width: 768px) {
+    .takvim-container {
+        padding: 80px 2%;
+    }
+}
+
+.contact-container {
+    padding: 100px 10% 50px;
+    text-align: center;
+}
+
+.contact-intro h1 {
+    font-size: 2.5rem;
+    color: #0d2c2a; /* Artemis Green */
+    margin-bottom: 10px;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 50px 0;
+}
+
+.contact-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    border-color: #e67e22; /* Matches your button color */
+}
+
+.contact-card .icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.map-wrapper {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+/* Mobile Adjustments */
+@media screen and (max-width: 768px) {
+    .contact-container {
+        padding: 80px 5% 30px;
+    }
+}
+
+/* This targets the icon container */
+.contact-card .icon {
+    height: 60px;       /* Gives all icons a standard "box" to sit in */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+/* This forces ALL logos to be the same size */
+.contact-card .icon img {
+    width: 50px;        /* Fixes the giant Gmail logo */
+    height: 50px;       /* Ensures square proportions */
+    object-fit: contain; /* Prevents logos from stretching */
+    display: block;
+}
+
+/* Optional: Center the text inside the card */
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    height: 100%;       /* Makes all cards the same height */
+}
+
+html {
+    scroll-behavior: smooth;
+}
