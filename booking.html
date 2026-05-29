@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creative Workshops &mdash; Artemis Art Studio</title>
+<title>Book a Session &mdash; Artemis Art Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -28,7 +28,6 @@ body{
   padding-top:72px;
 }
 h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400;line-height:1.1}
-img{max-width:100%;display:block;border-radius:8px}
 a{text-decoration:none;color:inherit}
 
 /* ===== NAVIGATION ===== */
@@ -97,25 +96,24 @@ a{text-decoration:none;color:inherit}
 .nav-toggle{display:none}
 
 /* ===== INNER HERO ===== */
-.inner-hero{background:var(--surface);padding:80px 4vw;text-align:center;}
-.inner-hero h1{font-size:clamp(36px,5vw,52px);margin-bottom:12px;}
+.inner-hero{background:var(--surface);padding:60px 4vw;text-align:center;}
+.inner-hero h1{font-size:clamp(36px,5vw,48px);margin-bottom:12px;}
 .inner-hero p{font-size:16px;color:rgba(61,43,31,0.7);max-width:600px;margin:0 auto;}
 
-/* ===== WORKSHOP CONTENT ===== */
-.section{padding:100px 4vw;}
-.grid-layout{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr;gap:64px;}
-.workshop-detailed-list{display:flex;flex-direction:column;gap:48px;}
-.detail-card{background:var(--bg);border-bottom:1px solid rgba(150,104,44,0.15);padding-bottom:48px;display:grid;grid-template-columns:1fr 1.5fr;gap:24px;}
-.detail-card-meta{font-size:13px;font-weight:600;color:var(--secondary);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;display:block;}
-.detail-card h3{font-size:28px;margin-bottom:12px;}
-
-/* ===== NEW PERKS PANEL SIDEBAR ===== */
-.perks-sidebar{background:var(--surface);padding:40px;border-radius:12px;position:sticky;top:100px;height:fit-content;box-shadow:0 8px 32px rgba(44,24,16,0.05);}
-.perks-sidebar h3{font-size:26px;margin-bottom:24px;color:var(--primary);}
-.perk-item{margin-bottom:24px;display:flex;gap:16px;align-items:flex-start;}
-.perk-icon{font-size:20px;background:var(--bg);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;color:var(--secondary);}
-.perk-title{font-size:16px;font-weight:600;margin-bottom:4px;font-family:'Inter',sans-serif;}
-.perk-desc{font-size:14px;color:rgba(61,43,31,0.7);}
+/* ===== CALENDLY SECTION VIEWPORT CONTAINER ===== */
+.booking-section {
+  padding:60px 4vw;
+  max-width:1100px;
+  margin:0 auto;
+}
+.calendly-frame-container {
+  background: var(--bg);
+  border-radius: 16px;
+  border: 1px solid rgba(150,104,44,0.15);
+  box-shadow: 0 12px 40px rgba(44,24,16,0.05);
+  overflow: hidden;
+  width: 100%;
+}
 
 /* ===== FOOTER ===== */
 .footer{background:var(--surface-dark);padding:60px 4vw 32px;margin-top:60px;}
@@ -138,14 +136,13 @@ a{text-decoration:none;color:inherit}
 @media(max-width:768px){
   .nav-links, .nav-cta{display:none}
   .nav-toggle{display:block;background:none;border:none;font-size:24px;cursor:pointer;color:var(--primary);}
-  .grid-layout{grid-template-columns:1fr;}
-  .detail-card{grid-template-columns:1fr;}
-  .perks-sidebar{position:static;}
+  .booking-section { padding: 30px 2vw; }
 }
 </style>
 </head>
 <body>
 
+<!-- ===== NAVIGATION ===== -->
 <nav class="nav">
   <a href="artemis-art-studio.html" class="nav-logo">Artemis</a>
   <ul class="nav-links">
@@ -160,77 +157,15 @@ a{text-decoration:none;color:inherit}
 </nav>
 
 <header class="inner-hero">
-  <h1 class="fade-up">Creative Workshops</h1>
-  <p class="fade-up">Find your creative escape. Explore our wide array of hands-on sessions led by master baristas and local artists.</p>
+  <h1 class="fade-up">Reserve Your Canvas</h1>
+  <p class="fade-up">Select a workshop experience, choose an available date, and secure your spot at our studio table instantly.</p>
 </header>
 
-<main class="section">
-  <div class="grid-layout">
-    <div class="workshop-detailed-list">
-      <div class="detail-card fade-up">
-        <img src="images/coffee-painting-workshop.jpg" alt="Coffee Painting">
-        <div>
-          <span class="detail-card-meta">2 Hours &bull; $45 &bull; Materials Included</span>
-          <h3>Coffee Painting Sessions</h3>
-          <p>Uncover the unexpected depth of organic earth tones. This popular masterclass guides you through monochromatic layering, dilution techniques, and fine-line detailing using freshly pulled espresso reductions as paint.</p>
-        </div>
-      </div>
-      
-      <div class="detail-card fade-up">
-        <img src="images/latte-art.jpg" alt="Latte Art Fundamentals">
-        <div>
-          <span class="detail-card-meta">1.5 Hours &bull; $55 &bull; Coffee Included</span>
-          <h3>Latte Art Fundamentals</h3>
-          <p>Go from standard pours to flawless artistic masterpieces. You'll master milk texturing dynamics, free-pouring alignment, and the essential wrist structures required for pristine hearts, rosettas, and tulips.</p>
-        </div>
-      </div>
-
-      <div class="detail-card fade-up">
-        <img src="images/coffee-watercolor.jpg" alt="Watercolor and Espresso">
-        <div>
-          <span class="detail-card-meta">2 Hours &bull; $50 &bull; Materials Included</span>
-          <h3>Watercolor &amp; Espresso</h3>
-          <p>Marry high-pigment watercolor washes with deep coffee staining. Perfect for dynamic textural layering, abstract landscapes, and organic design concepts.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- NEW REPLACEMENT PANEL: STUDIO PERKS -->
-    <div class="perks-sidebar fade-up">
-      <h3>The Artemis Experience</h3>
-      
-      <div class="perk-item">
-        <div class="perk-icon">&#9733;</div>
-        <div>
-          <div class="perk-title">All-Inclusive Supplies</div>
-          <p class="perk-desc">From professional-grade canvases and custom aprons to raw reductions, everything is completely ready for you.</p>
-        </div>
-      </div>
-
-      <div class="perk-item">
-        <div class="perk-icon">&#9749;</div>
-        <div>
-          <div class="perk-title">Complimentary Brews</div>
-          <p class="perk-desc">Enjoy a complimentary signature drink from our artisanal espresso bar during your creative session.</p>
-        </div>
-      </div>
-
-      <div class="perk-item">
-        <div class="perk-icon">&#128101;</div>
-        <div>
-          <div class="perk-title">Intimate Class Sizes</div>
-          <p class="perk-desc">We cap our workshop capacities to guarantee tailored, one-on-one attention from our design instructors.</p>
-        </div>
-      </div>
-
-      <div class="perk-item">
-        <div class="perk-icon">&#127912;</div>
-        <div>
-          <div class="perk-title">Take Home Your Art</div>
-          <p class="perk-desc">Every masterclass results in a finalized, customized custom piece safely packed for your trip home.</p>
-        </div>
-      </div>
-    </div>
+<main class="booking-section fade-up">
+  <div class="calendly-frame-container">
+    <!-- CALENDLY OFFICIAL INLINE WIDGET -->
+    <div class="calendly-inline-widget" data-url="https://calendly.com/koraykoruyucu/30min" style="min-width:320px;height:700px;"></div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
   </div>
 </main>
 
