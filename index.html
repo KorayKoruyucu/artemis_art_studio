@@ -69,6 +69,7 @@ a{text-decoration:none;color:inherit}
   color:var(--primary);
   transition:color 0.3s ease;
   position:relative;
+  text-decoration:none;
 }
 .nav-links a::after{
   content:'';
@@ -111,7 +112,7 @@ a{text-decoration:none;color:inherit}
   content:'';
   position:absolute;
   inset:0;
-  background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAAVElEQVRo3u3RAQ0AAAgDIN8/9GKXBwsYiZ9q6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr+wds6xZx7i3G6gAAAABJRU5ErkJggg==") repeat;
+  background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAAVElEQVRo3u3RAQ0AAAgDIN8/9GKXBwsYiZ9q6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr+wds6xZx7i3G6gAAAABJRU5ErkJggg==") repeat;
   opacity:0.02;
   pointer-events:none;
   mix-blend-mode:overlay;
@@ -122,7 +123,7 @@ a{text-decoration:none;color:inherit}
   margin:0 auto;
   padding:0 8vw;
   display:grid;
-  grid-template-columns:55% 45%;
+  grid-template-columns:50% 50%;
   align-items:center;
   gap:40px;
 }
@@ -144,6 +145,30 @@ a{text-decoration:none;color:inherit}
   opacity:0;
   transform:translateY(20px);
 }
+
+/* ===== COFFEE WRITING DYNAMIC COLOR CHROMATICITY ===== */
+.hero-headline .word-coffee {
+  background: linear-gradient(
+    90deg, 
+    var(--secondary) 0%, 
+    var(--coffee) 25%, 
+    var(--accent) 50%, 
+    var(--highlight) 75%, 
+    var(--secondary) 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: colorShift 8s linear infinite;
+  font-weight: 500;
+}
+
+@keyframes colorShift {
+  0% { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+
 .hero-subtitle{
   font-family:'Inter',sans-serif;
   font-size:16px;
@@ -158,6 +183,8 @@ a{text-decoration:none;color:inherit}
   align-items:center;
   justify-content:center;
   position:relative;
+  width:100%;
+  height:100%;
 }
 
 /* ===== SECTIONS GENERAL ===== */
@@ -217,15 +244,19 @@ a{text-decoration:none;color:inherit}
 }
 .intro-image:hover img{transform:scale(1.03)}
 
-/* ===== WORKSHOPS ===== */
+/* ===== WORKSHOPS: STATIC THREE-COLUMN GRID FOR COMPUTER ===== */
 #workshops{background:var(--bg);overflow:hidden}
+.workshops-carousel-wrapper{
+  position:relative;
+  width:100%;
+}
 .workshops-scroll{
-  display:flex;
-  gap:24px;
-  padding:40px 0;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:30px;
+  padding:20px 0;
 }
 .workshop-card{
-  min-width:380px;
   background:var(--surface);
   border-radius:12px;
   overflow:hidden;
@@ -284,6 +315,33 @@ a{text-decoration:none;color:inherit}
   transition:color 0.3s ease;
 }
 .workshop-card-link:hover{color:var(--secondary)}
+
+/* CAROUSEL BUTTONS (HIDDEN ON DESKTOP COMPUTER BY DEFAULT) */
+.carousel-btn {
+  display:none;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:var(--surface);
+  border:1px solid rgba(150,104,44,0.2);
+  color:var(--primary);
+  font-size:18px;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:10;
+  box-shadow:0 4px 12px rgba(44,24,16,0.1);
+  transition:all 0.3s ease;
+}
+.carousel-btn:hover {
+  background:var(--primary);
+  color:var(--bg);
+}
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
 
 /* ===== FEATURED ===== */
 #featured{background:var(--surface-dark)}
@@ -525,7 +583,11 @@ a{text-decoration:none;color:inherit}
   transition:opacity 0.8s cubic-bezier(0.33,1,0.68,1),transform 0.8s cubic-bezier(0.33,1,0.68,1);
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE LAYOUT DEFINITIONS ===== */
+@media(max-width:992px) {
+  .workshops-scroll { gap: 16px; }
+}
+
 @media(max-width:768px){
   .nav-links,.nav-cta{display:none}
   .nav-toggle{
@@ -539,7 +601,7 @@ a{text-decoration:none;color:inherit}
   .hero-inner{
     grid-template-columns:1fr;
     text-align:center;
-    gap:60px;
+    gap:40px;
     padding-top:100px;
     padding-bottom:60px;
   }
@@ -547,7 +609,44 @@ a{text-decoration:none;color:inherit}
   .hero-subtitle{margin:24px auto 0}
   .hero-visual{order:-1}
   .intro-grid{grid-template-columns:1fr}
-  .workshop-card{min-width:320px}
+  
+  /* ===== ACTIVE ONE CARD PER VIEWPORT SLIDER (PHONE) ===== */
+  .workshops-scroll{
+    display:flex;
+    gap:0;
+    padding:20px 0;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    scrollbar-width:none;
+    scroll-snap-type:x mandatory;
+  }
+  .workshop-card{
+    min-width:100%;
+    scroll-snap-align:center;
+    border-radius:0;
+    box-shadow:none;
+    padding:0 20px;
+    background:transparent;
+  }
+  .workshop-card-img {
+    height:200px;
+    overflow:hidden;
+  }
+  .workshop-card-img img {
+    border-radius:12px 12px 0 0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .workshop-card-content {
+    background:var(--surface);
+    border-radius:0 0 12px 12px;
+  }
+  
+  .carousel-btn {
+    display:flex;
+  }
+  
   .featured-grid{grid-template-columns:1fr}
   .featured-image{min-height:300px}
   .featured-text{padding:48px 24px}
@@ -555,28 +654,79 @@ a{text-decoration:none;color:inherit}
   .footer-grid{grid-template-columns:1fr;text-align:center}
   .footer-social{justify-content:center}
   .section{padding:80px 5vw}
+  
+  .hero-visual {
+    height: 340px !important;
+  }
 }
 
-/* ===== SVG COFFEE CUP ===== */
-.coffee-cup-svg{
-  cursor:pointer;
-  transition:transform 0.3s ease;
+/* ===== STAGGERED PARALLAX COLLAGE SLIDER ===== */
+.staggered-collage-viewport {
+  width: 100%;
+  max-width: 520px;
+  height: 520px;
+  overflow: hidden;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 10px;
+  border-radius: 20px;
 }
-.coffee-cup-svg:hover{transform:scale(1.02)}
-.coffee-cup-svg:focus{outline:none}
-#coffee-liquid{transition:all 0.4s ease}
+.collage-ribbon {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: max-content;
+}
+
+.ribbon-left {
+  animation: glideDown 24s infinite linear;
+}
+.ribbon-right {
+  animation: glideUp 24s infinite linear;
+}
+
+.collage-pic-box {
+  width: 100%;
+  aspect-ratio: 1 / 1.35;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgba(44,24,16,0.06);
+  border: 1px solid rgba(150,104,44,0.08);
+}
+.collage-pic-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.collage-pic-box:hover img {
+  transform: scale(1.03);
+}
+
+@keyframes glideDown {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+@keyframes glideUp {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
 </style>
 </head>
 <body>
 
 <!-- ===== NAVIGATION ===== -->
 <nav class="nav">
-  <a href="#" class="nav-logo">Artemis</a>
+  <a href="artemis-art-studio.html" class="nav-logo">Artemis</a>
   <ul class="nav-links">
-    <li><a href="#studio">Studio</a></li>
-    <li><a href="#workshops">Workshops</a></li>
-    <li><a href="#featured">Menu</a></li>
-    <li><a href="#visit">Visit</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">Our Story</a></li>
+    <li><a href="workshops.html">Workshops</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
   </ul>
   <button class="nav-cta" onclick="document.getElementById('visit').scrollIntoView({behavior:'smooth'})">Book a Session</button>
   <button class="nav-toggle" onclick="toggleMobileNav()">&#9776;</button>
@@ -590,23 +740,25 @@ a{text-decoration:none;color:inherit}
       <p class="hero-subtitle">Paint, sip, and create in a space designed for inspiration. Discover the magic of coffee art in our warm, welcoming studio.</p>
     </div>
     <div class="hero-visual">
-      <svg class="coffee-cup-svg" id="coffee-cup" viewBox="0 0 280 320" width="280" height="320" role="img" aria-label="Interactive coffee cup. Click to drink." tabindex="0">
-        <defs>
-          <clipPath id="cup-clip">
-            <rect x="50" y="40" width="140" height="180" rx="12" ry="12"/>
-          </clipPath>
-        </defs>
-        <!-- Saucer -->
-        <ellipse cx="120" cy="245" rx="90" ry="18" fill="#F5EDE4" stroke="#D4A574" stroke-width="2"/>
-        <!-- Cup body -->
-        <rect x="50" y="40" width="140" height="180" rx="12" ry="12" fill="#F5EDE4" stroke="#D4A574" stroke-width="2.5"/>
-        <!-- Cup handle -->
-        <path d="M 192 90 C 225 90, 225 160, 192 160" fill="none" stroke="#D4A574" stroke-width="4" stroke-linecap="round"/>
-        <!-- Coffee liquid -->
-        <rect id="coffee-liquid" x="55" y="76" width="130" height="144" fill="#6B3A2A" clip-path="url(#cup-clip)"/>
-        <!-- Steam particles container -->
-        <g id="steam-container"></g>
-      </svg>
+      <div class="staggered-collage-viewport">
+        
+        <!-- Left Track: Continuous Loop Down -->
+        <div class="collage-ribbon ribbon-left">
+          <div class="collage-pic-box"><img src="images/studio-interior.jpg" alt="Artemis space context"></div>
+          <div class="collage-pic-box"><img src="images/coffee-painting-workshop.jpg" alt="Canvas painting"></div>
+          <div class="collage-pic-box"><img src="images/studio-interior.jpg" alt="Artemis space context"></div>
+          <div class="collage-pic-box"><img src="images/coffee-painting-workshop.jpg" alt="Canvas painting"></div>
+        </div>
+        
+        <!-- Right Track: Continuous Loop Up -->
+        <div class="collage-ribbon ribbon-right">
+          <div class="collage-pic-box"><img src="images/latte-art.jpg" alt="Latte drawing frames"></div>
+          <div class="collage-pic-box"><img src="images/golden-hour.jpg" alt="Sunset context portrait"></div>
+          <div class="collage-pic-box"><img src="images/latte-art.jpg" alt="Latte drawing frames"></div>
+          <div class="collage-pic-box"><img src="images/golden-hour.jpg" alt="Sunset context portrait"></div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
@@ -621,7 +773,7 @@ a{text-decoration:none;color:inherit}
         <p class="section-body fade-up">Artemis is more than a caf&eacute; &mdash; it is a sanctuary where coffee culture and artistic expression intertwine. Our studio offers guided painting sessions, workshops, and a curated menu of artisanal coffees in a space designed to awaken your senses.</p>
       </div>
       <div class="intro-image fade-right">
-        <img src="/images/studio-interior.jpg" alt="Artemis Art Studio interior with easels, warm lighting, and coffee cups">
+        <img src="images/studio-interior.jpg" alt="Artemis Art Studio interior with easels, warm lighting, and coffee cups">
       </div>
     </div>
   </div>
@@ -632,59 +784,50 @@ a{text-decoration:none;color:inherit}
   <div class="section-inner">
     <span class="section-label fade-up">Workshops</span>
     <h2 class="section-heading fade-up">Explore Our Creative Sessions</h2>
-    <div class="workshops-scroll" id="workshops-scroll">
-      <div class="workshop-card fade-up">
-        <div class="workshop-card-img">
-          <img src="images/coffee-painting-workshop.jpg" alt="Coffee Painting Session">
+    <div class="workshops-carousel-wrapper">
+      <button class="carousel-btn prev" aria-label="Previous Slide">&#10094;</button>
+      <div class="workshops-scroll" id="workshops-scroll">
+        <div class="workshop-card fade-up">
+          <div class="workshop-card-img">
+            <img src="images/coffee-painting-workshop.jpg" alt="Coffee Painting Session">
+          </div>
+          <div class="workshop-card-content">
+            <h3 class="workshop-card-title">Coffee Painting Sessions</h3>
+            <p class="workshop-card-desc">Learn to paint stunning landscapes and portraits using coffee as your medium. All supplies included.</p>
+            <div class="workshop-card-meta">
+              <span class="workshop-card-price">From $45</span>
+              <span class="workshop-card-link">Learn More &rarr;</span>
+            </div>
+          </div>
         </div>
-        <div class="workshop-card-content">
-          <h3 class="workshop-card-title">Coffee Painting Sessions</h3>
-          <p class="workshop-card-desc">Learn to paint stunning landscapes and portraits using coffee as your medium. All supplies included.</p>
-          <div class="workshop-card-meta">
-            <span class="workshop-card-price">From $45</span>
-            <span class="workshop-card-link">Learn More &rarr;</span>
+        <div class="workshop-card fade-up">
+          <div class="workshop-card-img">
+            <img src="images/latte-art.jpg" alt="Latte Art Fundamentals">
+          </div>
+          <div class="workshop-card-content">
+            <h3 class="workshop-card-title">Latte Art Fundamentals</h3>
+            <p class="workshop-card-desc">Master the art of pouring beautiful rosettas, hearts, and tulips. Perfect for coffee enthusiasts.</p>
+            <div class="workshop-card-meta">
+              <span class="workshop-card-price">From $55</span>
+              <span class="workshop-card-link">Learn More &rarr;</span>
+            </div>
+          </div>
+        </div>
+        <div class="workshop-card fade-up">
+          <div class="workshop-card-img">
+            <img src="images/coffee-watercolor.jpg" alt="Watercolor and Espresso">
+          </div>
+          <div class="workshop-card-content">
+            <h3 class="workshop-card-title">Watercolor &amp; Espresso</h3>
+            <p class="workshop-card-desc">Combine traditional watercolor techniques with coffee staining for unique, earthy artworks.</p>
+            <div class="workshop-card-meta">
+              <span class="workshop-card-price">From $50</span>
+              <span class="workshop-card-link">Learn More &rarr;</span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="workshop-card fade-up">
-        <div class="workshop-card-img">
-          <img src="images/latte-art.jpg" alt="Latte Art Fundamentals">
-        </div>
-        <div class="workshop-card-content">
-          <h3 class="workshop-card-title">Latte Art Fundamentals</h3>
-          <p class="workshop-card-desc">Master the art of pouring beautiful rosettas, hearts, and tulips. Perfect for coffee enthusiasts.</p>
-          <div class="workshop-card-meta">
-            <span class="workshop-card-price">From $55</span>
-            <span class="workshop-card-link">Learn More &rarr;</span>
-          </div>
-        </div>
-      </div>
-      <div class="workshop-card fade-up">
-        <div class="workshop-card-img">
-          <img src="images/coffee-watercolor.jpg" alt="Watercolor and Espresso">
-        </div>
-        <div class="workshop-card-content">
-          <h3 class="workshop-card-title">Watercolor &amp; Espresso</h3>
-          <p class="workshop-card-desc">Combine traditional watercolor techniques with coffee staining for unique, earthy artworks.</p>
-          <div class="workshop-card-meta">
-            <span class="workshop-card-price">From $50</span>
-            <span class="workshop-card-link">Learn More &rarr;</span>
-          </div>
-        </div>
-      </div>
-      <div class="workshop-card fade-up">
-        <div class="workshop-card-img">
-          <img src="images/golden-hour.jpg" alt="Evening Sip and Paint">
-        </div>
-        <div class="workshop-card-content">
-          <h3 class="workshop-card-title">Evening Sip &amp; Paint</h3>
-          <p class="workshop-card-desc">Unwind with a glass of wine, artisanal coffee, and a guided painting session in golden hour light.</p>
-          <div class="workshop-card-meta">
-            <span class="workshop-card-price">From $60</span>
-            <span class="workshop-card-link">Learn More &rarr;</span>
-          </div>
-        </div>
-      </div>
+      <button class="carousel-btn next" aria-label="Next Slide">&#10095;</button>
     </div>
   </div>
 </section>
@@ -714,7 +857,7 @@ a{text-decoration:none;color:inherit}
       </div>
       <div class="testimonial-author fade-up" id="testimonial-author">Sarah Mitchell</div>
       <div class="testimonial-nav" id="testimonial-nav">
-        <button class="testimonial-dot active" data-index="0"></button>
+        <button class="testimonial-dot" data-index="0"></button>
         <button class="testimonial-dot" data-index="1"></button>
         <button class="testimonial-dot" data-index="2"></button>
       </div>
@@ -795,121 +938,56 @@ a{text-decoration:none;color:inherit}
 </footer>
 
 <script>
-// ===== COFFEE CUP INTERACTIVE =====
+// ===== CONDITIONALLY ACTIVE MOBILE CAROUSEL ENGINE =====
 (function(){
-  const svg = document.getElementById('coffee-cup');
-  const liquid = document.getElementById('coffee-liquid');
-  const steamContainer = document.getElementById('steam-container');
-  const cupInteriorHeight = 180;
-  let fillLevel = 0.80;
-  let particles = [];
-  let frameCount = 0;
-  let isResetting = false;
+  const track = document.getElementById('workshops-scroll');
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  let cycle;
 
-  // Steam particle class
-  function createParticle(burst) {
-    const el = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    const radius = 3 + Math.random() * 2;
-    const startX = 120 + (Math.random() - 0.5) * 40;
-    const startY = 60 + Math.random() * 10;
-    el.setAttribute('r', radius);
-    el.setAttribute('cx', startX);
-    el.setAttribute('cy', startY);
-    el.setAttribute('fill', 'rgba(212,165,116,0.4)');
-    el.setAttribute('fill-opacity', '0.4');
-    steamContainer.appendChild(el);
+  function handleSlide(direction) {
+    if (window.innerWidth > 768) return;
 
-    const particle = {
-      el: el,
-      x: startX,
-      baseX: startX,
-      y: startY,
-      radius: radius,
-      opacity: 0.4,
-      speed: 0.3 + Math.random() * 0.5,
-      wobbleOffset: Math.random() * Math.PI * 2,
-      wobbleSpeed: 0.02 + Math.random() * 0.03,
-      wobbleAmp: 8 + Math.random() * 12
-    };
-    particles.push(particle);
-    return particle;
-  }
-
-  // Animation loop
-  function animate() {
-    frameCount++;
-
-    // Spawn ambient particles
-    if (frameCount % 25 === 0 && particles.length < 12) {
-      createParticle(false);
-    }
-
-    // Update particles (iterate in reverse for safe removal)
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.y -= p.speed;
-      p.wobbleOffset += p.wobbleSpeed;
-      p.x = p.baseX + Math.sin(p.wobbleOffset) * p.wobbleAmp;
-      p.opacity -= 0.004;
-
-      p.el.setAttribute('cx', p.x);
-      p.el.setAttribute('cy', p.y);
-      p.el.setAttribute('fill-opacity', Math.max(0, p.opacity));
-
-      if (p.opacity <= 0 || p.y < 15) {
-        steamContainer.removeChild(p.el);
-        particles.splice(i, 1);
+    const step = track.clientWidth; 
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    
+    if (direction === 'next') {
+      if (track.scrollLeft >= maxScroll - 15) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: step, behavior: 'smooth' });
       }
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  // Start animation
-  animate();
-
-  // Emit burst of steam
-  function emitSteamBurst() {
-    for (let i = 0; i < 4; i++) {
-      setTimeout(() => createParticle(true), i * 80);
-    }
-  }
-
-  // Handle click
-  function handleClick() {
-    if (isResetting) return;
-
-    if (fillLevel > 0.12) {
-      fillLevel = Math.max(0.08, fillLevel - 0.15);
-      const newHeight = fillLevel * cupInteriorHeight;
-      const newY = 220 - newHeight;
-      liquid.setAttribute('y', newY);
-      liquid.setAttribute('height', newHeight);
-      emitSteamBurst();
-
-      if (fillLevel <= 0.12) {
-        // Show refill hint after a delay
-        setTimeout(() => {
-          if (fillLevel <= 0.12) {
-            isResetting = true;
-            liquid.setAttribute('y', '76');
-            liquid.setAttribute('height', '144');
-            fillLevel = 0.80;
-            emitSteamBurst();
-            setTimeout(() => { isResetting = false; }, 500);
-          }
-        }, 1200);
+    } else {
+      if (track.scrollLeft <= 15) {
+        track.scrollTo({ left: maxScroll, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: -step, behavior: 'smooth' });
       }
     }
   }
 
-  svg.addEventListener('click', handleClick);
-  svg.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      handleClick();
+  nextBtn.addEventListener('click', () => { handleSlide('next'); restartCycle(); });
+  prevBtn.addEventListener('click', () => { handleSlide('prev'); restartCycle(); });
+
+  function startCycle() {
+    if (window.innerWidth <= 768) {
+      cycle = setInterval(() => handleSlide('next'), 4000);
     }
+  }
+  function restartCycle() {
+    clearInterval(cycle);
+    startCycle();
+  }
+
+  track.addEventListener('mouseenter', () => clearInterval(cycle));
+  track.addEventListener('mouseleave', startCycle);
+  
+  window.addEventListener('resize', () => {
+    clearInterval(cycle);
+    startCycle();
   });
+
+  startCycle();
 })();
 
 // ===== TESTIMONIALS CYCLING =====
@@ -935,7 +1013,6 @@ a{text-decoration:none;color:inherit}
   const dots = document.querySelectorAll('.testimonial-dot');
 
   function showTestimonial(index) {
-    // Fade out
     quoteEl.style.transition = 'opacity 0.4s ease';
     authorEl.style.transition = 'opacity 0.4s ease';
     quoteEl.style.opacity = '0';
@@ -944,7 +1021,6 @@ a{text-decoration:none;color:inherit}
     setTimeout(() => {
       quoteEl.textContent = quotes[index].text;
       authorEl.textContent = quotes[index].author;
-      // Fade in
       quoteEl.style.opacity = '1';
       authorEl.style.opacity = '1';
     }, 400);
@@ -954,16 +1030,16 @@ a{text-decoration:none;color:inherit}
     });
   }
 
-  // Auto cycle
+  if(dots.length > 0) dots[0].classList.add('active');
+
   setInterval(() => {
     currentIndex = (currentIndex + 1) % quotes.length;
     showTestimonial(currentIndex);
   }, 6000);
 
-  // Dot clicks
-  dots.forEach(dot => {
+  dots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
-      currentIndex = parseInt(dot.dataset.index);
+      currentIndex = index;
       showTestimonial(currentIndex);
     });
   });
@@ -980,7 +1056,6 @@ a{text-decoration:none;color:inherit}
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Add stagger delay based on element's position among siblings
         const siblings = Array.from(entry.target.parentElement.children);
         const index = siblings.indexOf(entry.target);
         const delay = index * 0.12;
@@ -996,18 +1071,22 @@ a{text-decoration:none;color:inherit}
   });
 })();
 
-// ===== HERO HEADLINE WORD-BY-WORD ANIMATION =====
+// ===== HERO HEADLINE WORD-BY-WORD ANIMATION WITH COFFEE HIGHLIGHT =====
 (function(){
   const headline = document.getElementById('hero-headline');
   const text = headline.textContent;
   const words = text.split(' ');
   headline.innerHTML = words.map((word, i) => {
-    return '<span class="word" style="animation-delay:' + (i * 0.15) + 's">' + word + '</span>';
+    // Detect the word coffee cleanly to inject style identifiers
+    const isCoffee = word.toLowerCase().replace(/[^a-z]/g, '') === 'coffee';
+    const className = isCoffee ? 'word word-coffee' : 'word';
+    return '<span class="' + className + '" style="animation-delay:' + (i * 0.15) + 's">' + word + '</span>';
   }).join(' ');
 
-  // Trigger animation
   setTimeout(() => {
     headline.querySelectorAll('.word').forEach(word => {
+      // Retain layout properties, allowing gradient masks to calculate fill metrics
+      const isCoffee = word.classList.contains('word-coffee');
       word.style.opacity = '1';
       word.style.transform = 'translateY(0)';
       word.style.transition = 'opacity 0.8s cubic-bezier(0.33,1,0.68,1), transform 0.8s cubic-bezier(0.33,1,0.68,1)';
@@ -1061,5 +1140,3 @@ window.addEventListener('scroll', () => {
 
 </body>
 </html>
-
-

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Workshops &mdash; Artemis Art Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --primary:#3D2B1F;
+  --secondary:#96682C;
+  --accent:#D4A574;
+  --highlight:#C8956C;
+  --bg:#FDF8F3;
+  --surface:#F5EDE4;
+  --surface-dark:#2C1810;
+  --coffee:#6B3A2A;
+}
+body{
+  font-family:'Inter',sans-serif;
+  color:var(--primary);
+  background:var(--bg);
+  line-height:1.7;
+  letter-spacing:0.01em;
+  padding-top:72px;
+}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400;line-height:1.1}
+img{max-width:100%;display:block;border-radius:8px}
+a{text-decoration:none;color:inherit}
+
+/* ===== NAVIGATION ===== */
+.nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:72px;
+  background:rgba(253,248,243,0.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(150,104,44,0.1);
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 4vw;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  font-weight:500;
+  color:var(--primary);
+  letter-spacing:-0.01em;
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:36px;
+  list-style:none;
+}
+.nav-links a{
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:0.02em;
+  color:var(--primary);
+  transition:color 0.3s ease;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  bottom:-4px;left:0;
+  width:0;height:1.5px;
+  background:var(--secondary);
+  transition:width 0.3s ease;
+}
+.nav-links a:hover{color:var(--secondary)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  font-weight:500;
+  background:var(--secondary);
+  color:var(--bg);
+  padding:10px 24px;
+  border-radius:100px;
+  border:none;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+.nav-cta:hover{
+  background:var(--primary);
+  transform:translateY(-1px);
+}
+.nav-toggle{display:none}
+
+/* ===== INNER HERO ===== */
+.inner-hero{background:var(--surface);padding:80px 4vw;text-align:center;}
+.inner-hero h1{font-size:clamp(36px,5vw,52px);margin-bottom:12px;}
+.inner-hero p{font-size:16px;color:rgba(61,43,31,0.7);max-width:600px;margin:0 auto;}
+
+/* ===== WORKSHOP CONTENT ===== */
+.section{padding:100px 4vw;}
+.grid-layout{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr;gap:64px;}
+.workshop-detailed-list{display:flex;flex-direction:column;gap:48px;}
+.detail-card{background:var(--bg);border-bottom:1px solid rgba(150,104,44,0.15);padding-bottom:48px;display:grid;grid-template-columns:1fr 1.5fr;gap:24px;}
+.detail-card-meta{font-size:13px;font-weight:600;color:var(--secondary);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;display:block;}
+.detail-card h3{font-size:28px;margin-bottom:12px;}
+
+/* ===== BOOKING FORM ===== */
+.booking-sidebar{background:var(--surface);padding:40px;border-radius:12px;position:sticky;top:100px;height:fit-content;box-shadow:0 8px 32px rgba(44,24,16,0.05);}
+.booking-sidebar h3{font-size:26px;margin-bottom:20px;}
+.form-group{margin-bottom:20px;}
+.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
+.form-group input, .form-group select{width:100%;padding:12px;border:1px solid rgba(150,104,44,0.2);border-radius:6px;background:var(--bg);font-family:inherit;color:var(--primary);}
+.form-group input:focus, .form-group select:focus{outline:none;border-color:var(--secondary);}
+.submit-btn{width:100%;padding:14px;background:var(--secondary);color:var(--bg);border:none;border-radius:100px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.3s;}
+.submit-btn:hover{background:var(--primary);}
+
+/* ===== FOOTER ===== */
+.footer{background:var(--surface-dark);padding:60px 4vw 32px;margin-top:60px;}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 0.8fr;gap:48px;padding-bottom:40px;border-bottom:1px solid rgba(253,248,243,0.08);}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--bg);margin-bottom:8px;}
+.footer-tagline{font-size:14px;color:rgba(253,248,243,0.5);}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.footer-links a{font-size:14px;color:rgba(253,248,243,0.7);transition:color 0.3s;}
+.footer-links a:hover{color:var(--accent)}
+.footer-social{display:flex;gap:16px;}
+.footer-social a{width:40px;height:40px;border-radius:50%;border:1px solid rgba(212,165,116,0.3);display:flex;align-items:center;justify-content:center;color:var(--accent);transition:all 0.3s;}
+.footer-social a:hover{background:var(--accent);color:var(--surface-dark);}
+.footer-bottom{text-align:center;padding-top:24px;font-size:12px;color:rgba(253,248,243,0.4);}
+
+/* ===== ANIMATIONS ===== */
+.fade-up{opacity:0;transform:translateY(30px);}
+.fade-up.visible{opacity:1;transform:translateY(0);transition:opacity 0.8s cubic-bezier(0.33,1,0.68,1),transform 0.8s cubic-bezier(0.33,1,0.68,1);}
+
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .nav-toggle{
+    display:block;
+    background:none;
+    border:none;
+    font-size:24px;
+    cursor:pointer;
+    color:var(--primary);
+  }
+  .hero-inner{
+    grid-template-columns:1fr;
+    text-align:center;
+    gap:60px;
+    padding-top:100px;
+    padding-bottom:60px;
+  }
+  .hero-headline{max-width:100%}
+  .hero-subtitle{margin:24px auto 0}
+  .hero-visual{order:-1}
+  .intro-grid{grid-template-columns:1fr}
+  .workshop-card{min-width:320px}
+  .featured-grid{grid-template-columns:1fr}
+  .featured-image{min-height:300px}
+  .featured-text{padding:48px 24px}
+  .visit-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;text-align:center}
+  .footer-social{justify-content:center}
+  .section{padding:80px 5vw}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="artemis-art-studio.html" class="nav-logo">Artemis</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">Our Story</a></li>
+    <li><a href="workshops.html">Workshops</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book a Session</button>
+  <button class="nav-toggle" onclick="toggleMobileNav()">&#9776;</button>
+</nav>
+
+<header class="inner-hero">
+  <h1 class="fade-up">Creative Workshops</h1>
+  <p class="fade-up">Find your creative escape. Explore our wide array of hands-on sessions led by master baristas and local artists.</p>
+</header>
+
+<main class="section">
+  <div class="grid-layout">
+    <div class="workshop-detailed-list">
+      <div class="detail-card fade-up">
+        <img src="images/coffee-painting-workshop.jpg" alt="Coffee Painting">
+        <div>
+          <span class="detail-card-meta">2 Hours &bull; $45 &bull; Materials Included</span>
+          <h3>Coffee Painting Sessions</h3>
+          <p>Uncover the unexpected depth of organic earth tones. This popular masterclass guides you through monochromatic layering, dilution techniques, and fine-line detailing using freshly pulled espresso reductions as paint.</p>
+        </div>
+      </div>
+      
+      <div class="detail-card fade-up">
+        <img src="images/latte-art.jpg" alt="Latte Art Fundamentals">
+        <div>
+          <span class="detail-card-meta">1.5 Hours &bull; $55 &bull; Coffee Included</span>
+          <h3>Latte Art Fundamentals</h3>
+          <p>Go from standard pours to flawless artistic masterpieces. You'll master milk texturing dynamics, free-pouring alignment, and the essential wrist structures required for pristine hearts, rosettas, and tulips.</p>
+        </div>
+      </div>
+
+      <div class="detail-card fade-up">
+        <img src="images/coffee-watercolor.jpg" alt="Watercolor and Espresso">
+        <div>
+          <span class="detail-card-meta">2 Hours &bull; $50 &bull; Materials Included</span>
+          <h3>Watercolor &amp; Espresso</h3>
+          <p>Marry high-pigment watercolor washes with deep coffee staining. Perfect for dynamic textural layering, abstract landscapes, and organic design concepts.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="booking-sidebar fade-up" id="booking">
+      <h3>Secure Your Spot</h3>
+      <form onsubmit="event.preventDefault(); alert('Session successfully reserved!');">
+        <div class="form-group">
+          <label for="workshop-select">Select Workshop</label>
+          <select id="workshop-select">
+            <option>Coffee Painting Sessions — $45</option>
+            <option>Latte Art Fundamentals — $55</option>
+            <option>Watercolor &amp; Espresso — $50</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="date">Preferred Date</label>
+          <input type="date" id="date" required>
+        </div>
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" placeholder="Sarah Mitchell" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="hello@example.com" required>
+        </div>
+        <button type="submit" class="submit-btn">Reserve Session</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Artemis</div>
+        <p class="footer-tagline">Where every cup is a canvas.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="artemis-art-studio.html">Home</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="#">IG</a><a href="#">FB</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Artemis Art Studio. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// Mobile navigation logic[cite: 1]
+function toggleMobileNav() {
+  const navLinks = document.querySelector('.nav-links');
+  const isHidden = navLinks.style.display === 'flex';
+  navLinks.style.display = isHidden ? 'none' : 'flex';
+  if (!isHidden) {
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '72px';
+    navLinks.style.left = '0';
+    navLinks.style.right = '0';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.background = 'rgba(253,248,243,0.98)';
+    navLinks.style.padding = '24px';
+    navLinks.style.gap = '20px';
+    navLinks.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+    navLinks.style.backdropFilter = 'blur(12px)';
+    navLinks.style.zIndex = '99';
+  }
+}
+
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('.nav');
+  if (window.scrollY > 50) {
+    nav.style.boxShadow = '0 2px 20px rgba(44,24,16,0.06)';
+  } else {
+    nav.style.boxShadow = 'none';
+  }
+});
+
+(function(){
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>
